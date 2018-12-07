@@ -1,4 +1,5 @@
 using andead.alice.yeelight.Models.Request;
+using andead.alice.yeelight.Models.Response;
 using andead.alice.yeelight.Managers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -22,13 +23,14 @@ namespace andead.alice.yeelight.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
         // public IActionResult AliceWebhook([FromBody] AliceRequest request)
-        public IActionResult AliceWebhook([FromBody] JObject request)
+        //public IActionResult AliceWebhook([FromBody] JObject request)
+        public IActionResult AliceWebhook()
         {
-            _logger.LogInformation(JsonConvert.SerializeObject(request));
+            // _logger.LogInformation(JsonConvert.SerializeObject(request));
 
+            string resp = "{\"response\": {\"text\": \"Здравствуйте\", \"end_session\": true}, \"session\": {\"session_id\": \"2eac4854\", \"message_id\": 4, \"user_id\": \"AC9WC3DF6FCE\"}, \"version\": \"1.0\"}";
 
-
-            return Ok("This is test");
+            return Ok(resp);
         }
 
         [HttpGet("turn-on")]
