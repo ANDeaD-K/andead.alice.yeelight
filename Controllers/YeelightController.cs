@@ -3,6 +3,7 @@ using andead.alice.yeelight.Managers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace andead.alice.yeelight.Controllers
 {
@@ -20,16 +21,19 @@ namespace andead.alice.yeelight.Controllers
         [HttpPost("alice-webhook")]
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
-        public IActionResult AliceWebhook(AliceRequest request)
+        // public IActionResult AliceWebhook([FromBody] AliceRequest request)
+        public IActionResult AliceWebhook([FromBody] JObject request)
         {
             _logger.LogInformation(JsonConvert.SerializeObject(request));
+
+
 
             return Ok("This is test");
         }
 
         [HttpGet("turn-on")]
         [ProducesResponseType(200)]
-        public IActionResult TurnOn(AliceRequest request)
+        public IActionResult TurnOn()
         {
             new YeelightManager().TurnOn();
             return Ok("Turn on");
@@ -37,7 +41,7 @@ namespace andead.alice.yeelight.Controllers
 
         [HttpGet("turn-off")]
         [ProducesResponseType(200)]
-        public IActionResult TurnOff(AliceRequest request)
+        public IActionResult TurnOff()
         {
             new YeelightManager().TurnOff();
             return Ok("Turn off");
