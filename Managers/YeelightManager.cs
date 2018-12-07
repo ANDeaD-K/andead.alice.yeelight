@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Linq;
+using System.Threading.Tasks;
 using andead.alice.yeelight.Models;
 using andead.alice.yeelight.Models.Request;
 using andead.alice.yeelight.Models.Response;
@@ -25,14 +26,14 @@ namespace andead.alice.yeelight.Managers
             }));
         }
 
-        public void TurnOn()
+        public async void TurnOn()
         {
-            SetPower();
+            await Task.Run(() => SetPower());
         }
 
-        public void TurnOff()
+        public async void TurnOff()
         {
-            SetPower(false);
+            await Task.Run(() => SetPower(false));
         }
 
         public AliceResponse GetCommand(AliceRequest request)
