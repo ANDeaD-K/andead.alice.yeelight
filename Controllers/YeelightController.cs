@@ -23,10 +23,10 @@ namespace andead.alice.yeelight.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
         // public IActionResult AliceWebhook([FromBody] AliceRequest request)
-        //public IActionResult AliceWebhook([FromBody] JObject request)
-        public IActionResult AliceWebhook()
+        public IActionResult AliceWebhook([FromBody] JObject request)
+        // public IActionResult AliceWebhook()
         {
-            // _logger.LogInformation(JsonConvert.SerializeObject(request));
+            _logger.LogWarning(JsonConvert.SerializeObject(request));
 
             string resp = "{\"response\": {\"text\": \"Здравствуйте\", \"end_session\": true}, \"session\": {\"session_id\": \"2eac4854\", \"message_id\": 4, \"user_id\": \"AC9WC3DF6FCE\"}, \"version\": \"1.0\"}";
 
