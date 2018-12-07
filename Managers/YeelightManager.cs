@@ -10,7 +10,7 @@ namespace andead.alice.yeelight.Managers
 {
     public class YeelightManager
     {
-        private readonly string _address = "192.168.88.251";
+        private readonly string _address = "10.88.1.6";
         private readonly int _port = 55443;
 
         private void SetPower(bool on = true)
