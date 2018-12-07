@@ -20,7 +20,7 @@ namespace andead.alice.yeelight
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration((hostingContext, config) =>
+                .ConfigureAppConfiguration(config =>
                 {
                     config.SetBasePath(Directory.GetCurrentDirectory());
                     config.AddJsonFile("config.json", optional: false, reloadOnChange: true);
@@ -34,6 +34,11 @@ namespace andead.alice.yeelight
                     options.Listen(IPAddress.Any, listenPort, listenOptions => {
                         listenOptions.UseHttps(certFileName, certPassword);
                     });
+                })
+                .ConfigureLogging(logging =>
+                {
+                    logging.ClearProviders();
+                    logging.AddConsole();
                 })
                 .UseStartup<Startup>();
     }
