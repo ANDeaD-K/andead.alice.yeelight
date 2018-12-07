@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Linq;
 using andead.alice.yeelight.Models;
+using andead.alice.yeelight.Models.Request;
+using andead.alice.yeelight.Models.Response;
 
 namespace andead.alice.yeelight.Managers
 {
@@ -30,6 +33,40 @@ namespace andead.alice.yeelight.Managers
         public void TurnOff()
         {
             SetPower(false);
+        }
+
+        public AliceResponse GetCommand(AliceRequest request)
+        {
+            List<string> turnOnWords = new List<string>()
+            {
+                "включить",
+                "включи",
+                "зажги",
+                "включай"
+            };
+
+            List<string> turnOffWords = new List<string>()
+            {
+                "отключи",
+                "выключи",
+                "погаси",
+                "выключай",
+                "отключай"
+            };
+
+            if (request.request.nlu.tokens.Any(word => turnOnWords.Contains(word)))
+            {
+                TurnOn();
+                return new AliceManager().Reply(request, "Включаю свет");
+            }
+
+            if (request.request.nlu.tokens.Any(word => turnOffWords.Contains(word)))
+            {
+                TurnOff();
+                return new AliceManager().Reply(request, "Выключаю свет");
+            }
+
+            return new AliceManager().Reply(request, "Я не знаю такой команды");
         }
     }
 }
