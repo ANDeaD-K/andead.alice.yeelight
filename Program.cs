@@ -20,10 +20,21 @@ namespace andead.alice.yeelight
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .ConfigureKestrel((context, options) =>
+                .ConfigureAppConfiguration((hostingContext, config) =>
                 {
-                    options.Listen(IPAddress.Any, 5055);
-                });
+                    config.SetBasePath(Directory.GetCurrentDirectory());
+                    config.AddJsonFile("config.json", optional: false, reloadOnChange: true);
+                })
+                .ConfigureKestrel((hostingContext, options) =>
+                {
+                    int listenPort = hostingContext.Configuration.GetValue<int>("ListenPort", 5055);
+                    string certFileName = hostingContext.Configuration.GetValue<string>("CertificateFileName");
+                    string certPassword = hostingContext.Configuration.GetValue<string>("CertificatePassword");
+
+                    options.Listen(IPAddress.Any, listenPort, listenOptions => {
+                        listenOptions.UseHttps(certFileName, certPassword);
+                    });
+                })
+                .UseStartup<Startup>();
     }
 }
