@@ -8,17 +8,21 @@ namespace andead.alice.yeelight.Managers
     {
         public static void SendData(string address, int port, string data)
         {
-            IPEndPoint ipPoint = new IPEndPoint(IPAddress.Parse(address), port);
+            try
+            {
+                IPEndPoint ipPoint = new IPEndPoint(IPAddress.Parse(address), port);
 
-            Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            socket.Connect(ipPoint);
+                Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                socket.Connect(ipPoint);
 
-            data += "\r\n";
-            byte[] rawData = Encoding.Unicode.GetBytes(data);
-            socket.Send(rawData);
+                data += "\r\n";
+                byte[] rawData = Encoding.Unicode.GetBytes(data);
+                socket.Send(rawData);
 
-            socket.Shutdown(SocketShutdown.Both);
-            socket.Close();
+                socket.Shutdown(SocketShutdown.Both);
+                socket.Close();
+            }
+            catch { }
         }
     }
 }
