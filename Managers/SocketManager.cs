@@ -16,7 +16,7 @@ namespace andead.alice.yeelight.Managers
                 socket.Connect(ipPoint);
 
                 data += "\r\n";
-                byte[] rawData = Encoding.Unicode.GetBytes(data);
+                byte[] rawData = Encoding.ASCII.GetBytes(data);
                 socket.Send(rawData);
 
                 socket.Shutdown(SocketShutdown.Both);
