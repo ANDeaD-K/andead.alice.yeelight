@@ -26,6 +26,11 @@ namespace andead.alice.yeelight.Controllers
         {
             _logger.LogWarning(JsonConvert.SerializeObject(request));
 
+            if (request.request.session.@new)
+            {
+                return Ok(JsonConvert.SerializeObject(new AliceManager().Reply(request, "Привет! Данный навык является закрытым.")));
+            }
+
             AliceResponse response = new YeelightManager().GetCommand(request);
             return Ok(JsonConvert.SerializeObject(response));
         }
