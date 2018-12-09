@@ -67,7 +67,7 @@ namespace andead.alice.yeelight.Managers
                 return new AliceManager().Reply(request, "Выключаю свет");
             }
 
-            return new AliceManager().Reply(request, "Я не знаю такой команды");
+            return new AliceManager().Reply(request, "Вы должны сказать \"включи свет\" для включения света или \"выключи свет\" для его отключения");
         }
     }
 }

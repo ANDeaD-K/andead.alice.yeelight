@@ -26,9 +26,9 @@ namespace andead.alice.yeelight.Controllers
         {
             _logger.LogWarning(JsonConvert.SerializeObject(request));
 
-            if (request.request.session.@new)
+            if (request.session.@new && request.request.nlu.tokens.Count == 0)
             {
-                return Ok(JsonConvert.SerializeObject(new AliceManager().Reply(request, "Привет! Данный навык является закрытым.")));
+                return Ok(JsonConvert.SerializeObject(new AliceManager().Reply(request, "Привет! Данный навык является закрытым.\nВы должны сказать \"включи свет\" для включения света или \"выключи свет\" для его отключения")));
             }
 
             AliceResponse response = new YeelightManager().GetCommand(request);
