@@ -43,6 +43,7 @@ namespace andead.alice.yeelight.Managers
                 "включить",
                 "включи",
                 "зажги",
+                "зажечь",
                 "включай"
             };
 
@@ -52,7 +53,11 @@ namespace andead.alice.yeelight.Managers
                 "выключи",
                 "погаси",
                 "выключай",
-                "отключай"
+                "отключай",
+                "отключить",
+                "погасить",
+                "отключить",
+                "выключить"
             };
 
             List<string> endWords = new List<string>()
