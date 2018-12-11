@@ -55,6 +55,13 @@ namespace andead.alice.yeelight.Managers
                 "отключай"
             };
 
+            List<string> endWords = new List<string>()
+            {
+                "спасибо",
+                "пока",
+                "благодарю"
+            };
+
             if (request.request.nlu.tokens.Any(word => turnOnWords.Contains(word)))
             {
                 TurnOn();
@@ -65,6 +72,11 @@ namespace andead.alice.yeelight.Managers
             {
                 TurnOff();
                 return new AliceManager().Reply(request, "Выключаю свет");
+            }
+
+            if (request.request.nlu.tokens.Any(word => endWords.Contains(word)))
+            {
+                return new AliceManager().Reply(request, "Пока!", true);
             }
 
             return new AliceManager().Reply(request, "Вы должны сказать \"включи свет\" для включения света или \"выключи свет\" для его отключения");

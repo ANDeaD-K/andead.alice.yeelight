@@ -5,14 +5,14 @@ namespace andead.alice.yeelight.Managers
 {
     public class AliceManager
     {
-        public AliceResponse Reply(AliceRequest request, string responseText)
+        public AliceResponse Reply(AliceRequest request, string responseText, bool isEndSession = false)
         {
             return new AliceResponse()
             {
                 response = new Response()
                 {
                     text = responseText,
-                    end_session = true
+                    end_session = isEndSession
                 },
                 session = new andead.alice.yeelight.Models.Response.Session()
                 {
